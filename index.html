@@ -31,6 +31,9 @@
         <button class="nav-item" id="settingsBtn"><span class="nav-icon">⚙</span> Configuration cloud</button>
         <div class="user-mini"><div class="avatar">M</div><div><strong>Mon espace</strong><span>Productivité personnelle</span></div></div>
       </div>
+      <button type="button" id="logoutBtn">
+  Se déconnecter
+</button>
     </aside>
 
     <main class="main-content">
@@ -213,6 +216,10 @@
     </form>
   </dialog>
 
+  
+
+
+
   <!-- MODAL CLOUD -->
   <dialog class="modal" id="cloudModal">
     <form id="cloudForm" class="modal-form">
@@ -228,7 +235,10 @@
     </form>
   </dialog>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="app.js"></script>
+  
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="auth.js"></script>
+<script src="app.js"></script>
+
 </body>
 </html>

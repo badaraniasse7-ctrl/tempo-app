@@ -697,25 +697,42 @@ $("#dashboardTasksEmpty").hidden = upcoming.length > 0;
     }
   }
 
-  async function loadRemote() {
-    if(!cloudClient||!cloudUser)return;
-    isApplyingRemote=true;
-    try {
-      const tables=["projects","tasks","planning","notes"];
-      const result=await Promise.all(tables.map(table=>cloudClient.from(table).select("*")));
-      result.forEach((r)=>{if(r.error)throw r.error;});
-      const [projects,tasks,planning,notes]=result.map(r=>r.data||[]);
-      if(!projects.length&&!tasks.length&&!planning.length&&!notes.length&&(state.projects.length||state.tasks.length||state.planning.length||state.notes.length)){
-        isApplyingRemote=false;await saveRemote();isApplyingRemote=true;
-      } else {
-        state.projects=projects.map(r=>r.data);
-        state.tasks=tasks.map(r=>r.data);
-        state.planning=planning.map(r=>r.data);
-        state.notes=notes.map(r=>r.data);
-        persistLocal();
-      }
-    } finally {isApplyingRemote=false;}
+  
+async function loadRemote() {
+  if (!cloudClient || !cloudUser) return;
+
+  isApplyingRemote = true;
+
+  try {
+    const tables = ["projects", "tasks", "planning", "notes"];
+
+    const result = await Promise.all(
+      tables.map(table =>
+        cloudClient
+          .from(table)
+          .select("id, data")
+          .eq("user_id", cloudUser.id)
+      )
+    );
+
+    for (const response of result) {
+      if (response.error) throw response.error;
+    }
+
+    const [projects, tasks, planning, notes] =
+      result.map(response => response.data || []);
+
+    state.projects = projects.map(row => row.data);
+    state.tasks = tasks.map(row => row.data);
+    state.planning = planning.map(row => row.data);
+    state.notes = notes.map(row => row.data);
+
+    persistLocal();
+  } finally {
+    isApplyingRemote = false;
   }
+}
+
 
   async function saveRemote() {
     if(!cloudClient||!cloudUser||isApplyingRemote)return;

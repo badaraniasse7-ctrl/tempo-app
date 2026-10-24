@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -6,6 +7,7 @@
   <meta name="theme-color" content="#f6f7fb">
   <meta name="description" content="Gestionnaire personnel de temps, tâches, planning, projets et notes.">
   <title>Tempo — Espace de productivité</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -14,124 +16,323 @@
 <body>
   <div class="app-shell">
     <aside class="sidebar" id="sidebar">
-      <a href="#" class="brand" aria-label="Tempo accueil"><span class="brand-mark">t.</span><span>tempo<span class="brand-dot">.</span></span></a>
+      <a href="#" class="brand" aria-label="Tempo accueil">
+        <span class="brand-mark">t.</span>
+        <span>tempo<span class="brand-dot">.</span></span>
+      </a>
+
       <div class="workspace-label">ESPACE PERSONNEL</div>
+
       <nav class="main-nav" aria-label="Navigation principale">
-        <button class="nav-item active" data-view="dashboard"><span class="nav-icon">◫</span> Tableau de bord</button>
-        <button class="nav-item" data-view="tasks"><span class="nav-icon">☑</span> Mes tâches <span class="nav-count" id="navTaskCount">0</span></button>
-        <button class="nav-item" data-view="calendar"><span class="nav-icon">▦</span> Planning</button>
-        <button class="nav-item" data-view="projects"><span class="nav-icon">▤</span> Mes projets</button>
-        <button class="nav-item" data-view="notes"><span class="nav-icon">▧</span> Bloc-notes</button>
+        <button class="nav-item active" data-view="dashboard">
+          <span class="nav-icon">◫</span> Tableau de bord
+        </button>
+        <button class="nav-item" data-view="tasks">
+          <span class="nav-icon">☑</span> Mes tâches
+          <span class="nav-count" id="navTaskCount">0</span>
+        </button>
+        <button class="nav-item" data-view="calendar">
+          <span class="nav-icon">▦</span> Planning
+        </button>
+        <button class="nav-item" data-view="projects">
+          <span class="nav-icon">▤</span> Mes projets
+        </button>
+        <button class="nav-item" data-view="notes">
+          <span class="nav-icon">▧</span> Bloc-notes
+        </button>
       </nav>
+
       <div class="sidebar-bottom">
         <div class="sync-card">
           <span class="sync-dot" id="syncDot"></span>
-          <div><strong id="syncTitle">Mode local</strong><p id="syncDescription">Données sur cet appareil</p></div>
+          <div>
+            <strong id="syncTitle">Mode local</strong>
+            <p id="syncDescription">Données sur cet appareil</p>
+          </div>
         </div>
-        <button class="nav-item" id="settingsBtn"><span class="nav-icon">⚙</span> Configuration cloud</button>
-        <div class="user-mini"><div class="avatar">M</div><div><strong>Mon espace</strong><span>Productivité personnelle</span></div></div>
+
+        <button class="nav-item" id="settingsBtn">
+          <span class="nav-icon">⚙</span> Configuration cloud
+        </button>
+
+        <div class="user-mini">
+          <div class="avatar">M</div>
+          <div>
+            <strong>Mon espace</strong>
+            <span>Productivité personnelle</span>
+          </div>
+        </div>
       </div>
-      <button type="button" id="logoutBtn">
-  Se déconnecter
-</button>
+
+      <button type="button" id="logoutBtn">Se déconnecter</button>
     </aside>
 
     <main class="main-content">
       <header class="topbar">
         <button class="mobile-menu icon-button" id="mobileMenu" aria-label="Ouvrir le menu">☰</button>
-        <div class="breadcrumb">Mon espace <span>/</span> <strong id="currentSection">Tableau de bord</strong></div>
+
+        <div class="breadcrumb">
+          Mon espace <span>/</span>
+          <strong id="currentSection">Tableau de bord</strong>
+        </div>
+
         <div class="topbar-actions">
-          <label class="search-box"><span>⌕</span><input id="globalSearch" type="search" placeholder="Rechercher..." aria-label="Rechercher"></label>
-          <button class="primary-button" id="quickAddBtn"><span>＋</span> Nouvelle tâche</button>
+          <label class="search-box">
+            <span>⌕</span>
+            <input id="globalSearch" type="search" placeholder="Rechercher..." aria-label="Rechercher">
+          </label>
+          <button class="primary-button" id="quickAddBtn">
+            <span>＋</span> Nouvelle tâche
+          </button>
         </div>
       </header>
 
       <div class="page-wrap">
-        <!-- ================= DASHBOARD ================= -->
+
+        <!-- TABLEAU DE BORD -->
         <section class="view active" id="view-dashboard">
           <div class="welcome-row">
-            <div><div class="eyebrow">TON ESPACE, TON RYTHME</div><h1>Fais de la place à <span>l'essentiel.</span></h1><p>Tâches, planning, projets et notes : quatre espaces indépendants.</p></div>
-            <div class="date-chip"><span>◷</span><span id="todayDate"></span></div>
+            <div>
+              <div class="eyebrow">TON ESPACE, TON RYTHME</div>
+              <h1>Fais de la place à <span>l'essentiel.</span></h1>
+              <p>Tâches, planning, projets et notes : quatre espaces indépendants.</p>
+            </div>
+            <div class="date-chip">
+              <span>◷</span>
+              <span id="todayDate"></span>
+            </div>
           </div>
+
           <div class="stat-grid">
-            <article class="stat-card"><div class="stat-top"><span>Tâches à faire</span><span class="stat-icon purple">☑</span></div><strong id="todayTasksStat">0</strong><small>tâches en cours</small></article>
-            <article class="stat-card"><div class="stat-top"><span>En retard</span><span class="stat-icon coral">!</span></div><strong id="overdueStat">0</strong><small>tâches en retard</small></article>
-            <article class="stat-card"><div class="stat-top"><span>Projets actifs</span><span class="stat-icon blue">▤</span></div><strong id="activeProjectsStat">0</strong><small>projets en cours</small></article>
-            <article class="stat-card"><div class="stat-top"><span>Progression</span><span class="stat-icon green">✓</span></div><strong id="completionStat">0%</strong><small>tâches terminées</small><div class="mini-progress"><span id="completionBar"></span></div></article>
+            <article class="stat-card">
+              <div class="stat-top">
+                <span>Tâches à faire</span>
+                <span class="stat-icon purple">☑</span>
+              </div>
+              <strong id="todayTasksStat">0</strong>
+              <small>tâches en cours</small>
+            </article>
+
+            <article class="stat-card">
+              <div class="stat-top">
+                <span>En retard</span>
+                <span class="stat-icon coral">!</span>
+              </div>
+              <strong id="overdueStat">0</strong>
+              <small>tâches en retard</small>
+            </article>
+
+            <article class="stat-card">
+              <div class="stat-top">
+                <span>Projets actifs</span>
+                <span class="stat-icon blue">▤</span>
+              </div>
+              <strong id="activeProjectsStat">0</strong>
+              <small>projets en cours</small>
+            </article>
+
+            <article class="stat-card">
+              <div class="stat-top">
+                <span>Progression</span>
+                <span class="stat-icon green">✓</span>
+              </div>
+              <strong id="completionStat">0%</strong>
+              <small>tâches terminées</small>
+              <div class="mini-progress"><span id="completionBar"></span></div>
+            </article>
           </div>
+
           <div class="dashboard-grid">
             <section class="panel tasks-panel">
-              <div class="panel-heading"><div><h2>Tâches à ne pas oublier</h2><p>Les prochaines tâches à traiter</p></div><button class="text-button" data-goto="tasks">Voir toutes les tâches →</button></div>
+              <div class="panel-heading">
+                <div>
+                  <h2>Tâches à ne pas oublier</h2>
+                  <p>Les prochaines tâches à traiter</p>
+                </div>
+                <button class="text-button" data-goto="tasks">Voir toutes les tâches →</button>
+              </div>
               <div id="dashboardTasks" class="compact-list"></div>
               <div class="empty-inline" id="dashboardTasksEmpty">Aucune tâche pour le moment.</div>
             </section>
+
             <section class="panel">
-              <div class="panel-heading"><div><h2>Planning à venir</h2><p>Prochains événements</p></div><button class="text-button" data-goto="calendar">Voir le planning →</button></div>
+              <div class="panel-heading">
+                <div>
+                  <h2>Planning à venir</h2>
+                  <p>Prochains événements</p>
+                </div>
+                <button class="text-button" data-goto="calendar">Voir le planning →</button>
+              </div>
               <div id="dashboardPlanning" class="compact-list"></div>
               <div class="empty-inline" id="dashboardPlanningEmpty">Aucun événement planifié.</div>
             </section>
+
             <section class="panel focus-panel">
-              <div class="panel-heading"><div><h2>Ta progression</h2><p>Tâches terminées</p></div><span class="sparkle">✦</span></div>
-              <div class="focus-ring" id="focusRing"><div><strong id="focusPercent">0%</strong><span>terminé</span></div></div>
+              <div class="panel-heading">
+                <div>
+                  <h2>Ta progression</h2>
+                  <p>Tâches terminées</p>
+                </div>
+                <span class="sparkle">✦</span>
+              </div>
+              <div class="focus-ring" id="focusRing">
+                <div>
+                  <strong id="focusPercent">0%</strong>
+                  <span>terminé</span>
+                </div>
+              </div>
               <p class="focus-caption" id="focusCaption">Ajoute une tâche pour commencer.</p>
               <div class="focus-legend">
                 <span><i class="legend-dot purple-dot"></i> Terminées <b id="focusDone">0</b></span>
                 <span><i class="legend-dot gray-dot"></i> Restantes <b id="focusRemaining">0</b></span>
               </div>
             </section>
+
             <section class="panel projects-panel">
-              <div class="panel-heading"><div><h2>Projets en cours</h2><p>Vue d'ensemble</p></div><button class="text-button" data-goto="projects">Voir les projets →</button></div>
+              <div class="panel-heading">
+                <div>
+                  <h2>Projets en cours</h2>
+                  <p>Vue d'ensemble</p>
+                </div>
+                <button class="text-button" data-goto="projects">Voir les projets →</button>
+              </div>
               <div id="dashboardProjects" class="project-list"></div>
               <div class="empty-inline" id="dashboardProjectsEmpty">Crée un projet pour organiser tes activités.</div>
             </section>
+
             <section class="panel notes-panel">
-              <div class="panel-heading"><div><h2>Notes récentes</h2><p>Idées à garder sous la main</p></div><button class="text-button" data-goto="notes">Ouvrir le bloc-notes →</button></div>
+              <div class="panel-heading">
+                <div>
+                  <h2>Notes récentes</h2>
+                  <p>Idées à garder sous la main</p>
+                </div>
+                <button class="text-button" data-goto="notes">Ouvrir le bloc-notes →</button>
+              </div>
               <div id="dashboardNotes" class="notes-preview-list"></div>
               <div class="empty-inline" id="dashboardNotesEmpty">Tes idées apparaîtront ici.</div>
             </section>
           </div>
         </section>
 
-        <!-- ================= TÂCHES ================= -->
+        <!-- TÂCHES -->
         <section class="view" id="view-tasks">
-          <div class="page-heading"><div><div class="eyebrow">PASSER À L'ACTION</div><h1>Mes tâches</h1><p>Liste d'actions avec statut, priorité et échéance. Indépendante du planning.</p></div><button class="primary-button" id="newTaskBtn">＋ Nouvelle tâche</button></div>
-          <div class="toolbar">
-            <div class="segmented" id="taskFilters"><button class="selected" data-filter="all">Toutes</button><button data-filter="open">À faire</button><button data-filter="doing">En cours</button><button data-filter="done">Terminées</button></div>
-            <select id="taskProjectFilter" aria-label="Filtrer par projet"><option value="all">Tous les projets</option></select>
-            <select id="taskSort" aria-label="Trier"><option value="created">Plus récentes</option><option value="due">Par échéance</option><option value="priority">Par priorité</option></select>
+          <div class="page-heading">
+            <div>
+              <div class="eyebrow">PASSER À L'ACTION</div>
+              <h1>Mes tâches</h1>
+              <p>Liste d'actions avec statut, priorité et échéance. Indépendante du planning.</p>
+            </div>
+            <button class="primary-button" id="newTaskBtn">＋ Nouvelle tâche</button>
           </div>
-          <div class="panel table-panel"><div id="taskList" class="task-list"></div><div class="empty-state" id="tasksEmpty"><span class="empty-emoji">✦</span><h3>Tout commence par une tâche</h3><p>Ajoute une tâche pour organiser tes actions.</p><button class="primary-button" data-action="new-task">＋ Créer une tâche</button></div></div>
+
+          <div class="toolbar">
+            <div class="segmented" id="taskFilters">
+              <button class="selected" data-filter="all">Toutes</button>
+              <button data-filter="open">À faire</button>
+              <button data-filter="doing">En cours</button>
+              <button data-filter="done">Terminées</button>
+            </div>
+
+            <select id="taskProjectFilter" aria-label="Filtrer par projet">
+              <option value="all">Tous les projets</option>
+            </select>
+
+            <select id="taskSort" aria-label="Trier">
+              <option value="created">Plus récentes</option>
+              <option value="due">Par échéance</option>
+              <option value="priority">Par priorité</option>
+            </select>
+          </div>
+
+          <div class="panel table-panel">
+            <div id="taskList" class="task-list"></div>
+            <div class="empty-state" id="tasksEmpty">
+              <span class="empty-emoji">✦</span>
+              <h3>Tout commence par une tâche</h3>
+              <p>Ajoute une tâche pour organiser tes actions.</p>
+              <button class="primary-button" data-action="new-task">＋ Créer une tâche</button>
+            </div>
+          </div>
         </section>
 
-        <!-- ================= PLANNING ================= -->
+        <!-- PLANNING -->
         <section class="view" id="view-calendar">
-          <div class="page-heading"><div><div class="eyebrow">TON TEMPS, EN UN COUP D'ŒIL</div><h1>Planning</h1><p>Événements indépendants : titre, description, date et heure de début.</p></div><button class="primary-button" id="newPlanningBtn">＋ Nouvel événement</button></div>
+          <div class="page-heading">
+            <div>
+              <div class="eyebrow">TON TEMPS, EN UN COUP D'ŒIL</div>
+              <h1>Planning</h1>
+              <p>Événements indépendants : titre, description, date et heure de début.</p>
+            </div>
+            <button class="primary-button" id="newPlanningBtn">＋ Nouvel événement</button>
+          </div>
+
           <div class="panel calendar-panel">
             <div class="calendar-toolbar">
               <div class="calendar-nav">
-                <button class="icon-button" id="prevPeriod" aria-label="Précédent">‹</button>
-                <button class="icon-button" id="nextPeriod" aria-label="Suivant">›</button>
+                <button class="icon-button" id="prevPeriod" aria-label="Période précédente">‹</button>
+                <button class="icon-button" id="nextPeriod" aria-label="Période suivante">›</button>
                 <button class="secondary-button" id="todayPeriod">Aujourd'hui</button>
                 <h2 id="calendarTitle">Calendrier</h2>
               </div>
-              <div class="segmented" id="calendarModes"><button data-mode="day">Jour</button><button class="selected" data-mode="week">Semaine</button><button data-mode="month">Mois</button></div>
+
+              <div class="segmented" id="calendarModes">
+                <button data-mode="day">Jour</button>
+                <button class="selected" data-mode="week">Semaine</button>
+                <button data-mode="month">Mois</button>
+              </div>
             </div>
+
             <div id="calendarContent"></div>
-            <div class="calendar-legend"><span><i class="legend-dot purple-dot"></i> Événement planifié</span><span>Clique sur un événement pour le modifier.</span></div>
+
+            <div class="calendar-legend">
+              <span><i class="legend-dot purple-dot"></i> Événement planifié</span>
+              <span>Clique sur un événement pour le modifier.</span>
+            </div>
           </div>
         </section>
 
-        <!-- ================= PROJETS ================= -->
+        <!-- PROJETS -->
         <section class="view" id="view-projects">
-          <div class="page-heading"><div><div class="eyebrow">AVANCER AVEC INTENTION</div><h1>Mes projets</h1><p>Espaces de travail indépendants pour organiser tes activités.</p></div><button class="primary-button" id="newProjectBtn">＋ Nouveau projet</button></div>
-          <div class="project-toolbar"><input id="projectSearch" type="search" placeholder="Rechercher un projet..."><select id="projectStatusFilter"><option value="all">Tous les statuts</option><option value="active">En cours</option><option value="paused">En pause</option><option value="done">Terminés</option></select></div>
+          <div class="page-heading">
+            <div>
+              <div class="eyebrow">AVANCER AVEC INTENTION</div>
+              <h1>Mes projets</h1>
+              <p>Espaces de travail indépendants pour organiser tes activités.</p>
+            </div>
+            <button class="primary-button" id="newProjectBtn">＋ Nouveau projet</button>
+          </div>
+
+          <div class="project-toolbar">
+            <input id="projectSearch" type="search" placeholder="Rechercher un projet...">
+            <select id="projectStatusFilter">
+              <option value="all">Tous les statuts</option>
+              <option value="active">En cours</option>
+              <option value="paused">En pause</option>
+              <option value="done">Terminés</option>
+            </select>
+          </div>
+
           <div id="projectGrid" class="project-grid"></div>
-          <div class="empty-state" id="projectsEmpty"><span class="empty-emoji">▤</span><h3>Crée ton premier projet</h3><p>Un projet regroupe une description, un statut, une échéance et des notes propres.</p><button class="primary-button" data-action="new-project">＋ Nouveau projet</button></div>
+
+          <div class="empty-state" id="projectsEmpty">
+            <span class="empty-emoji">▤</span>
+            <h3>Crée ton premier projet</h3>
+            <p>Un projet regroupe une description, un statut, une échéance et des notes propres.</p>
+            <button class="primary-button" data-action="new-project">＋ Nouveau projet</button>
+          </div>
         </section>
 
-        <!-- ================= NOTES ================= -->
+        <!-- BLOC-NOTES -->
         <section class="view" id="view-notes">
-          <div class="page-heading"><div><div class="eyebrow">CAPTURER TES IDÉES</div><h1>Bloc-notes</h1><p>Notes personnelles indépendantes, avec sauvegarde manuelle et autosauvegarde.</p></div><button class="primary-button" id="newNoteBtn">＋ Nouvelle note</button></div>
+          <div class="page-heading">
+            <div>
+              <div class="eyebrow">CAPTURER TES IDÉES</div>
+              <h1>Bloc-notes</h1>
+              <p>Notes personnelles indépendantes, avec sauvegarde manuelle et autosauvegarde.</p>
+            </div>
+            <button class="primary-button" id="newNoteBtn">＋ Nouvelle note</button>
+          </div>
+
           <div class="notes-layout">
             <aside class="notes-sidebar panel">
               <div class="notes-search">
@@ -140,105 +341,284 @@
               <div id="noteList" class="note-list"></div>
               <div class="empty-inline" id="notesListEmpty">Aucune note pour le moment.</div>
             </aside>
+
             <article class="note-editor panel" id="noteEditor"></article>
           </div>
         </section>
+
       </div>
-      <footer class="app-footer"><span>Tempo · Quatre espaces indépendants.</span><span id="footerSaveState">Sauvegarde locale activée</span></footer>
+
+      <footer class="app-footer">
+        <span>Tempo · Quatre espaces indépendants.</span>
+        <span id="footerSaveState">Sauvegarde locale activée</span>
+      </footer>
     </main>
   </div>
 
   <div class="overlay" id="overlay"></div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <!-- MODAL TÂCHE : seul le titre est obligatoire -->
-<dialog class="modal" id="taskModal">
-  <form id="taskForm" class="modal-form">
-    <div class="modal-heading"><div><div class="eyebrow">ORGANISER UNE ACTION</div><h2 id="taskModalTitle">Nouvelle tâche</h2></div><button type="button" class="icon-button" data-close="taskModal" aria-label="Fermer">×</button></div>
-    <input type="hidden" id="taskId">
-    <label class="field full"><span>Titre de la tâche *</span><input id="taskTitle" required maxlength="160" placeholder="Ex. Préparer la présentation" autofocus></label>
-    <details class="task-optional">
-      <summary>Options supplémentaires (facultatif)</summary>
-      <label class="field full"><span>Description / notes</span><textarea id="taskDescription" rows="3" placeholder="Les détails importants..."></textarea></label>
-      <div class="form-grid">
-        <label class="field"><span>Projet</span><select id="taskProject"><option value="">Sans projet</option></select></label>
-        <label class="field"><span>Statut</span><select id="taskStatus"><option value="open">À faire</option><option value="doing">En cours</option><option value="done">Terminée</option></select></label>
-        <label class="field"><span>Priorité</span><select id="taskPriority"><option value="low">Basse</option><option value="medium" selected>Moyenne</option><option value="high">Haute</option></select></label>
-        <label class="field"><span>Échéance</span><input id="taskDue" type="date"></label>
+  <!-- MODAL TÂCHE -->
+  <dialog class="modal" id="taskModal">
+    <form id="taskForm" class="modal-form">
+      <div class="modal-heading">
+        <div>
+          <div class="eyebrow">ORGANISER UNE ACTION</div>
+          <h2 id="taskModalTitle">Nouvelle tâche</h2>
+        </div>
+        <button type="button" class="icon-button" data-close="taskModal" aria-label="Fermer">×</button>
       </div>
-    </details>
-    <div class="modal-actions"><button type="button" class="secondary-button" data-close="taskModal">Annuler</button><button type="submit" class="primary-button">Enregistrer la tâche</button></div>
-  </form>
-</dialog>
+
+      <input type="hidden" id="taskId">
+
+      <label class="field full">
+        <span>Titre de la tâche *</span>
+        <input id="taskTitle" required maxlength="160" placeholder="Ex. Préparer la présentation">
+      </label>
+
+      <details class="task-optional">
+        <summary>Options supplémentaires (facultatif)</summary>
+
+        <label class="field full">
+          <span>Description / notes</span>
+          <textarea id="taskDescription" rows="3" placeholder="Les détails importants..."></textarea>
+        </label>
+
+        <div class="form-grid">
+          <label class="field">
+            <span>Projet</span>
+            <select id="taskProject"><option value="">Sans projet</option></select>
+          </label>
+
+          <label class="field">
+            <span>Statut</span>
+            <select id="taskStatus">
+              <option value="open">À faire</option>
+              <option value="doing">En cours</option>
+              <option value="done">Terminée</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Priorité</span>
+            <select id="taskPriority">
+              <option value="low">Basse</option>
+              <option value="medium" selected>Moyenne</option>
+              <option value="high">Haute</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Échéance</span>
+            <input id="taskDue" type="date">
+          </label>
+        </div>
+      </details>
+
+      <div class="modal-actions">
+        <button type="button" class="secondary-button" data-close="taskModal">Annuler</button>
+        <button type="submit" class="primary-button">Enregistrer la tâche</button>
+      </div>
+    </form>
+  </dialog>
 
   <!-- MODAL PLANNING -->
   <dialog class="modal" id="planningModal">
     <form id="planningForm" class="modal-form">
-      <div class="modal-heading"><div><div class="eyebrow">ORGANISER TON PLANNING</div><h2 id="planningModalTitle">Nouvel événement</h2></div><button type="button" class="icon-button" data-close="planningModal" aria-label="Fermer">×</button></div>
-      <input type="hidden" id="planningId">
-      <label class="field full"><span>Titre *</span><input id="planningTitle" required maxlength="120" placeholder="Ex. Rendez-vous, lecture, sport..."></label>
-      <label class="field full"><span>Description *</span><textarea id="planningDescription" rows="3" required maxlength="1000" placeholder="Décris ce que tu as prévu..."></textarea></label>
-      <div class="form-grid">
-        <label class="field"><span>Date *</span><input id="planningDate" type="date" required></label>
-        <label class="field"><span>Heure de début *</span><input id="planningStartTime" type="time" required></label>
+      <div class="modal-heading">
+        <div>
+          <div class="eyebrow">ORGANISER TON PLANNING</div>
+          <h2 id="planningModalTitle">Nouvel événement</h2>
+        </div>
+        <button type="button" class="icon-button" data-close="planningModal" aria-label="Fermer">×</button>
       </div>
-      <div class="modal-actions"><button type="button" class="secondary-button" data-close="planningModal">Annuler</button><button type="submit" class="primary-button">Enregistrer l'événement</button></div>
+
+      <input type="hidden" id="planningId">
+
+      <label class="field full">
+        <span>Titre *</span>
+        <input id="planningTitle" required maxlength="120" placeholder="Ex. Rendez-vous, lecture, sport...">
+      </label>
+
+      <label class="field full">
+        <span>Description *</span>
+        <textarea id="planningDescription" rows="3" required maxlength="1000" placeholder="Décris ce que tu as prévu..."></textarea>
+      </label>
+
+      <div class="form-grid">
+        <label class="field">
+          <span>Date *</span>
+          <input id="planningDate" type="date" required>
+        </label>
+
+        <label class="field">
+          <span>Heure de début *</span>
+          <input id="planningStartTime" type="time" required>
+        </label>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="secondary-button" data-close="planningModal">Annuler</button>
+        <button type="submit" class="primary-button">Enregistrer l'événement</button>
+      </div>
     </form>
   </dialog>
 
   <!-- MODAL PROJET -->
   <dialog class="modal" id="projectModal">
     <form id="projectForm" class="modal-form">
-      <div class="modal-heading"><div><div class="eyebrow">STRUCTURER TES ACTIVITÉS</div><h2 id="projectModalTitle">Nouveau projet</h2></div><button type="button" class="icon-button" data-close="projectModal" aria-label="Fermer">×</button></div>
-      <input type="hidden" id="projectId">
-      <label class="field full"><span>Nom du projet *</span><input id="projectName" required maxlength="100" placeholder="Ex. Agence, formation, boutique..."></label>
-      <label class="field full"><span>Description courte (140 caractères max)</span><textarea id="projectDescription" rows="2" maxlength="140" placeholder="Présente brièvement ce projet."></textarea></label>
-      <label class="field full"><span>Bloc-notes du projet</span><textarea id="projectNotes" rows="4" placeholder="Notes, idées et comptes rendus propres à ce projet..."></textarea></label>
-      <div class="form-grid">
-        <label class="field"><span>Catégorie</span><input id="projectCategory" maxlength="60" placeholder="Ex. Travail, personnel"></label>
-        <label class="field"><span>Couleur</span><select id="projectColor"><option value="purple">Violet</option><option value="blue">Bleu</option><option value="green">Vert</option><option value="orange">Orange</option><option value="pink">Rose</option></select></label>
-        <label class="field"><span>Date de début</span><input id="projectStart" type="date"></label>
-        <label class="field"><span>Échéance</span><input id="projectDue" type="date"></label>
-        <label class="field full"><span>Statut</span><select id="projectStatus"><option value="active">En cours</option><option value="paused">En pause</option><option value="done">Terminé</option></select></label>
+      <div class="modal-heading">
+        <div>
+          <div class="eyebrow">STRUCTURER TES ACTIVITÉS</div>
+          <h2 id="projectModalTitle">Nouveau projet</h2>
+        </div>
+        <button type="button" class="icon-button" data-close="projectModal" aria-label="Fermer">×</button>
       </div>
-      <div class="modal-actions"><button type="button" class="secondary-button" data-close="projectModal">Annuler</button><button type="submit" class="primary-button">Enregistrer le projet</button></div>
+
+      <input type="hidden" id="projectId">
+
+      <label class="field full">
+        <span>Nom du projet *</span>
+        <input id="projectName" required maxlength="100" placeholder="Ex. Agence, formation, boutique...">
+      </label>
+
+      <label class="field full">
+        <span>Description courte (140 caractères max)</span>
+        <textarea id="projectDescription" rows="2" maxlength="140" placeholder="Présente brièvement ce projet."></textarea>
+      </label>
+
+      <label class="field full">
+        <span>Bloc-notes du projet</span>
+        <textarea id="projectNotes" rows="4" placeholder="Notes, idées et comptes rendus propres à ce projet..."></textarea>
+      </label>
+
+      <div class="form-grid">
+        <label class="field">
+          <span>Catégorie</span>
+          <input id="projectCategory" maxlength="60" placeholder="Ex. Travail, personnel">
+        </label>
+
+        <label class="field">
+          <span>Couleur</span>
+          <select id="projectColor">
+            <option value="purple">Violet</option>
+            <option value="blue">Bleu</option>
+            <option value="green">Vert</option>
+            <option value="orange">Orange</option>
+            <option value="pink">Rose</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Date de début</span>
+          <input id="projectStart" type="date">
+        </label>
+
+        <label class="field">
+          <span>Échéance</span>
+          <input id="projectDue" type="date">
+        </label>
+
+        <label class="field full">
+          <span>Statut</span>
+          <select id="projectStatus">
+            <option value="active">En cours</option>
+            <option value="paused">En pause</option>
+            <option value="done">Terminé</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="secondary-button" data-close="projectModal">Annuler</button>
+        <button type="submit" class="primary-button">Enregistrer le projet</button>
+      </div>
     </form>
   </dialog>
 
-  <!-- MODAL NOTE : création avec confirmation explicite -->
+  <!-- MODAL NOTE -->
   <dialog class="modal" id="noteModal">
     <form id="noteForm" class="modal-form">
-      <div class="modal-heading"><div><div class="eyebrow">BLOC-NOTES PERSONNEL</div><h2 id="noteModalTitle">Nouvelle note</h2></div><button type="button" class="icon-button" data-close="noteModal" aria-label="Fermer">×</button></div>
+      <div class="modal-heading">
+        <div>
+          <div class="eyebrow">BLOC-NOTES PERSONNEL</div>
+          <h2 id="noteModalTitle">Nouvelle note</h2>
+        </div>
+        <button type="button" class="icon-button" data-close="noteModal" aria-label="Fermer">×</button>
+      </div>
+
       <input type="hidden" id="noteId">
-      <label class="field full"><span>Titre de la note *</span><input id="noteTitle" required maxlength="160" placeholder="Ex. Une idée à retenir"></label>
-      <label class="field full"><span>Contenu *</span><textarea id="noteContent" required rows="8" maxlength="10000" placeholder="Écris ta note ici..."></textarea></label>
-      <div class="modal-actions"><button type="button" class="secondary-button" data-close="noteModal">Annuler</button><button type="submit" class="primary-button">Enregistrer la note</button></div>
+
+      <label class="field full">
+        <span>Titre de la note *</span>
+        <input id="noteTitle" required maxlength="160" placeholder="Ex. Une idée à retenir">
+      </label>
+
+      <label class="field full">
+        <span>Contenu *</span>
+        <textarea id="noteContent" required rows="8" maxlength="10000" placeholder="Écris ta note ici..."></textarea>
+      </label>
+
+      <div class="modal-actions">
+        <button type="button" class="secondary-button" data-close="noteModal">Annuler</button>
+        <button type="submit" class="primary-button">Enregistrer la note</button>
+      </div>
     </form>
   </dialog>
-
-  
-
-
 
   <!-- MODAL CLOUD -->
   <dialog class="modal" id="cloudModal">
     <form id="cloudForm" class="modal-form">
-      <div class="modal-heading"><div><div class="eyebrow">SYNCHRONISATION</div><h2>Connexion Supabase</h2></div><button type="button" class="icon-button" data-close="cloudModal" aria-label="Fermer">×</button></div>
-      <div class="cloud-explainer"><strong>Connexion Supabase</strong><p>Renseigne les identifiants de ton projet Supabase pour synchroniser tâches, planning, projets et notes.</p><p>La connexion reste accessible ici à tout moment. En cas de déconnexion, Tempo continue en mode local.</p></div>
-      <label class="field full"><span>URL du projet Supabase</span><input id="supabaseUrl" type="url" placeholder="https://xxxx.supabase.co"></label>
-      <label class="field full"><span>Clé publishable / anon</span><input id="supabaseKey" type="password" autocomplete="off" placeholder="sb_publishable_... ou clé anon"></label>
-      <label class="field full"><span>Adresse e-mail</span><input id="cloudEmail" type="email" autocomplete="email" placeholder="toi@exemple.com"></label>
-      <label class="field full"><span>Mot de passe</span><input id="cloudPassword" type="password" autocomplete="current-password" placeholder="Mot de passe du compte"></label>
-      <p class="small-note">N'utilise jamais une clé <strong>service_role</strong> dans le navigateur.</p>
-      <div class="modal-actions modal-actions-wrap"><button type="button" class="secondary-button" data-close="cloudModal">Fermer</button><button type="button" class="secondary-button" id="cloudSignUp">Créer un compte</button><button type="button" class="primary-button" id="cloudConnect">Se connecter</button></div>
+      <div class="modal-heading">
+        <div>
+          <div class="eyebrow">SYNCHRONISATION</div>
+          <h2>Connexion Supabase</h2>
+        </div>
+        <button type="button" class="icon-button" data-close="cloudModal" aria-label="Fermer">×</button>
+      </div>
+
+      <div class="cloud-explainer">
+        <strong>Connexion Supabase</strong>
+        <p>Renseigne les identifiants de ton projet Supabase pour synchroniser tâches, planning, projets et notes.</p>
+        <p>La connexion reste accessible ici à tout moment. En cas de déconnexion, Tempo continue en mode local.</p>
+      </div>
+
+      <label class="field full">
+        <span>URL du projet Supabase</span>
+        <input id="supabaseUrl" type="url" placeholder="https://xxxx.supabase.co">
+      </label>
+
+      <label class="field full">
+        <span>Clé publishable / anon</span>
+        <input id="supabaseKey" type="password" autocomplete="off" placeholder="sb_publishable_... ou clé anon">
+      </label>
+
+      <label class="field full">
+        <span>Adresse e-mail</span>
+        <input id="cloudEmail" type="email" autocomplete="email" placeholder="toi@exemple.com">
+      </label>
+
+      <label class="field full">
+        <span>Mot de passe</span>
+        <input id="cloudPassword" type="password" autocomplete="current-password" placeholder="Mot de passe du compte">
+      </label>
+
+      <p class="small-note">
+        N'utilise jamais une clé <strong>service_role</strong> dans le navigateur.
+      </p>
+
+      <div class="modal-actions modal-actions-wrap">
+        <button type="button" class="secondary-button" data-close="cloudModal">Fermer</button>
+        <button type="button" class="secondary-button" id="cloudSignUp">Créer un compte</button>
+        <button type="button" class="primary-button" id="cloudConnect">Se connecter</button>
+      </div>
+
       <div class="cloud-status" id="cloudStatus" role="status"></div>
     </form>
   </dialog>
 
-  
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="auth.js"></script>
-<script src="app.js"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="auth.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
